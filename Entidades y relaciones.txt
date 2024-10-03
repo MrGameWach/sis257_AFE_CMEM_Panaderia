@@ -1,0 +1,49 @@
+    Producto (Producto de panadería)
+        ID_producto: Identificador único (PK)
+        nombre: Nombre del producto
+        precio: Precio de venta
+        tipo: Tipo de producto (pan, pastel, etc.)
+        cantidad_disponible: Cantidad en inventario
+
+    Cliente
+        ID_cliente: Identificador único (PK)
+        nombre: Nombre completo
+        email: Correo electrónico
+        telefono: Número de teléfono
+
+    Pedido
+        ID_pedido: Identificador único (PK)
+        fecha: Fecha del pedido
+        total: Monto total del pedido
+        ID_cliente: Llave foránea (FK) referenciando al cliente
+
+    Detalle_Pedido
+        ID_detalle: Identificador único (PK)
+        ID_pedido: Llave foránea (FK) referenciando al pedido
+        ID_producto: Llave foránea (FK) referenciando al producto
+        cantidad: Cantidad de productos en el pedido
+        subtotal: Subtotal para el producto en el pedido
+
+    Empleado
+        ID_empleado: Identificador único (PK)
+        nombre: Nombre del empleado
+        rol: Cargo del empleado (panadero, cajero, etc.)
+
+    Proveedor
+        ID_proveedor: Identificador único (PK)
+        nombre: Nombre del proveedor
+        telefono: Número de contacto
+        direccion: Dirección del proveedor
+
+    Inventario
+        ID_inventario: Identificador único (PK)
+        ID_producto: Llave foránea (FK) referenciando al producto
+        cantidad: Cantidad actual en inventario
+        fecha_actualizacion: Última fecha de actualización del inventario
+
+Relaciones:
+
+    Un cliente puede hacer muchos pedidos (relación 1).
+    Un pedido puede incluir muchos productos (a través de la entidad Detalle_Pedido, relación N).
+    Un producto puede ser suministrado por varios proveedores (relación N).
+    Un empleado puede gestionar varios pedidos (relación 1).
