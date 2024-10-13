@@ -1,26 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEmpleadoDto } from './dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from './dto/update-empleado.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Empleado } from './entities/empleado.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class EmpleadoService {
-  create(createEmpleadoDto: CreateEmpleadoDto) {
-    return 'This action adds a new empleado';
+  constructor(
+    @InjectRepository(Empleado)
+    private empleadosRepository:Repository<Empleado>
+  ){}
+  async create(createEmpleadoDto: CreateEmpleadoDto): Promise<Empleado> {
+    const existe = await this.empleadosRepository.findOneBy({
+      nombre: createEmpleadoDto.nombre.trim(),
+      rol:createEmpleadoDto.rol.trim()
+    });
+    if (existe) throw new ConflictException('el empleado ya existe')
+
+    const empleado = new Empleado();
+    empleado.nombre = createEmpleadoDto.nombre.trim();
+    empleado.rol=createEmpleadoDto.rol.trim();
+    return this.empleadosRepository.save(empleado);
   }
 
-  findAll() {
-    return `This action returns all empleado`;
+  async findAll(): Promise<Empleado[]> {
+    return this.empleadosRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} empleado`;
+  async findOne(id: number): Promise<Empleado> {
+    const empleado = await this.empleadosRepository.findOneBy({ id });
+    if (!empleado) throw new NotFoundException('el empleado no existe');
+
+    return empleado;
   }
 
-  update(id: number, updateEmpleadoDto: UpdateEmpleadoDto) {
-    return `This action updates a #${id} empleado`;
+  async update(id: number, updateEmpleadoDto: UpdateEmpleadoDto): Promise<Empleado> {
+    const empleado = await this.findOne(id);
+    const empleadoUpdate = Object.assign(empleado, UpdateEmpleadoDto)
+    return this.empleadosRepository.save(empleadoUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} empleado`;
+  async remove(id: number) {
+    const empleado = await this.findOne(id);
+    return this.empleadosRepository.softRemove(empleado);
   }
 }
