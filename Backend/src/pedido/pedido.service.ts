@@ -1,26 +1,47 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Pedido } from './entities/pedido.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PedidoService {
-  create(createPedidoDto: CreatePedidoDto) {
-    return 'This action adds a new pedido';
+  constructor(
+    @InjectRepository(Pedido)
+    private pedidosRepository:Repository<Pedido>
+  ){}
+  async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
+    const existe = await this.pedidosRepository.findOneBy({
+      fecha:createPedidoDto.fecha
+    });
+    if (existe) throw new ConflictException('el pedido ya existe')
+
+    const pedido = new Pedido();
+    pedido.fecha=createPedidoDto.fecha;
+    
+    return this.pedidosRepository.save(pedido);
   }
 
-  findAll() {
-    return `This action returns all pedido`;
+  async findAll(): Promise<Pedido[]> {
+    return this.pedidosRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pedido`;
+  async findOne(id: number): Promise<Pedido> {
+    const pedido = await this.pedidosRepository.findOneBy({ id });
+    if (!pedido) throw new NotFoundException('el pedido no existe');
+
+    return pedido;
   }
 
-  update(id: number, updatePedidoDto: UpdatePedidoDto) {
-    return `This action updates a #${id} pedido`;
+  async update(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
+    const pedido = await this.findOne(id);
+    const pedidoUpdate = Object.assign(pedido, UpdatePedidoDto)
+    return this.pedidosRepository.save(pedidoUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pedido`;
+  async remove(id: number) {
+    const pedido = await this.findOne(id);
+    return this.pedidosRepository.softRemove(pedido);
   }
 }

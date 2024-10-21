@@ -5,15 +5,13 @@ export class Cliente {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('varchar',{length:50})
   nombre: string;
 
-  @Column('decimal')
-  precio: number;
+  @Column('varchar',{length:30})
+  email: string;
 
-  @Column()
-  tipo: string;
+  @Column('varchar',{length:8})
+  telefono: string;
 
-  @Column('int')
-  cantidad_disponible: number;
 }

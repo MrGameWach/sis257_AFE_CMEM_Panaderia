@@ -1,26 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDetallePedidoDto } from './dto/create-detalle_pedido.dto';
 import { UpdateDetallePedidoDto } from './dto/update-detalle_pedido.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { DetallePedido } from './entities/detalle_pedido.entity';
 
 @Injectable()
 export class DetallePedidoService {
-  create(createDetallePedidoDto: CreateDetallePedidoDto) {
-    return 'This action adds a new detallePedido';
+  constructor(
+    @InjectRepository(DetallePedido)
+    private detallePedidosRepository:Repository<DetallePedido>
+  ){}
+  async create(createDetallePedidoDto: CreateDetallePedidoDto):Promise<DetallePedido> {
+    const existe = await this.detallePedidosRepository.findOneBy({
+      cantidad:createDetallePedidoDto.cantidad,
+      subtotal:createDetallePedidoDto.subtotal
+    });
+    if (existe) throw new ConflictException('el detalle del pedido ya existe')
+
+    const detallePedido = new DetallePedido();
+    detallePedido.cantidad=createDetallePedidoDto.cantidad;
+    detallePedido.subtotal=createDetallePedidoDto.subtotal;
+    
+    return this.detallePedidosRepository.save(detallePedido);
   }
 
-  findAll() {
-    return `This action returns all detallePedido`;
+  async findAll():Promise<DetallePedido[]> {
+    return this.detallePedidosRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} detallePedido`;
+  async findOne(id: number):Promise<DetallePedido> {
+    const detallePedido = await this.detallePedidosRepository.findOneBy({ id });
+    if (!detallePedido) throw new NotFoundException('el pedido no existe');
+
+    return detallePedido;
   }
 
-  update(id: number, updateDetallePedidoDto: UpdateDetallePedidoDto) {
-    return `This action updates a #${id} detallePedido`;
-  }
+  async update(id: number, updateDetallePedidoDto: UpdateDetallePedidoDto):Promise<DetallePedido> {
+    const detallePedido = await this.findOne(id);
+    const detallePedidoUpdate = Object.assign(detallePedido, UpdateDetallePedidoDto)
+    return this.detallePedidosRepository.save(detallePedidoUpdate);  }
 
-  remove(id: number) {
-    return `This action removes a #${id} detallePedido`;
+  async remove(id: number) {
+    const detallePedido = await this.findOne(id);
+    return this.detallePedidosRepository.softRemove(detallePedido);
   }
 }
