@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Producto } from 'src/producto/entities/producto.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Proveedor {
@@ -13,4 +14,8 @@ export class Proveedor {
 
   @Column('varchar',{length:30})
   direccion: string;
+
+  @ManyToOne(() => Producto, (producto) => producto.proveedores)
+  @JoinColumn({ name: 'id_producto', referencedColumnName: 'id' })
+  producto: Producto;
 }

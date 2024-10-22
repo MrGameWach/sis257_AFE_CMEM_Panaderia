@@ -21,6 +21,7 @@ export class EmpleadoService {
     const empleado = new Empleado();
     empleado.nombre = createEmpleadoDto.nombre.trim();
     empleado.rol=createEmpleadoDto.rol.trim();
+    //empleado.fechaContratacion.getDate;
     return this.empleadosRepository.save(empleado);
   }
 
