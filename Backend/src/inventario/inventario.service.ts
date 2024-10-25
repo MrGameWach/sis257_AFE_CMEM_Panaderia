@@ -19,6 +19,7 @@ export class InventarioService {
 
     const inventario = new Inventario();
     inventario.cantidad=createInventarioDto.cantidad;
+    inventario.nombre=createInventarioDto.nombre;
     
     return this.inventariosRepository.save(inventario);
   }
@@ -36,6 +37,8 @@ export class InventarioService {
 
   async update(id: number, updateInventarioDto: UpdateInventarioDto): Promise<Inventario> {
     const inventario = await this.findOne(id);
+    inventario.cantidad=updateInventarioDto.cantidad;
+    inventario.nombre=updateInventarioDto.nombre.trim();
     const inventarioUpdate = Object.assign(inventario, UpdateInventarioDto)
     return this.inventariosRepository.save(inventarioUpdate);
   }

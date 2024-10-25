@@ -23,6 +23,7 @@ export class ClienteService {
     cliente.nombre = createClienteDto.nombre.trim();
     cliente.email=createClienteDto.email.trim();
     cliente.telefono=createClienteDto.telefono.trim();
+    cliente.idPedido=createClienteDto.idPedido;
     return this.clientesRepository.save(cliente);
   }
 
@@ -39,6 +40,9 @@ export class ClienteService {
 
   async update(id: number, updateClienteDto: UpdateClienteDto): Promise<Cliente> {
     const cliente = await this.findOne(id);
+    cliente.email=updateClienteDto.email.trim();
+    cliente.nombre=updateClienteDto.nombre.trim();
+    cliente.telefono=updateClienteDto.telefono.trim();
     const clienteUpdate = Object.assign(cliente, UpdateClienteDto)
     return this.clientesRepository.save(clienteUpdate);
   }

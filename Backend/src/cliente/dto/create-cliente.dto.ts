@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, MaxLength } from "class-validator";
+import { IsDefined, isDefined, isNotEmpty, IsNotEmpty, IsNumber, isNumber, IsString, MaxLength } from "class-validator";
 
 export class CreateClienteDto {
     @ApiProperty()
@@ -19,4 +19,9 @@ export class CreateClienteDto {
     @IsString({ message: 'el campo es de tipo cadena' })
     @MaxLength(8, { message: '50 caracters como maximo' })
     readonly telefono: string;
+
+    @ApiProperty()
+    @IsDefined({ message: 'El campo idPedido tiene que ser definido'})
+    @IsNumber({},{message:'El campo tiene que ser numerico'})
+    readonly idPedido: number;
 }

@@ -1,7 +1,8 @@
 import { Cliente } from 'src/cliente/entities/cliente.entity';
+import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity';
 import { Empleado } from 'src/empleado/entities/empleado.entity';
 import { Producto } from 'src/producto/entities/producto.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity()
 export class Pedido {

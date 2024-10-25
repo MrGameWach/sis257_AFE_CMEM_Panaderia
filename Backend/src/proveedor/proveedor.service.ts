@@ -39,6 +39,9 @@ export class ProveedorService {
 
   async update(id: number, updateProveedorDto: UpdateProveedorDto): Promise<Proveedor> {
     const proveedor = await this.findOne(id);
+    proveedor.nombre=updateProveedorDto.nombre.trim();
+    proveedor.telefono=updateProveedorDto.telefono.trim();
+    proveedor.direccion=updateProveedorDto.direccion.trim();
     const proveedorUpdate = Object.assign(proveedor, UpdateProveedorDto)
     return this.proveedorsRepository.save(proveedorUpdate);
   }

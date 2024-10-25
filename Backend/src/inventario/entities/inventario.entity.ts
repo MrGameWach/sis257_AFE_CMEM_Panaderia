@@ -1,13 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 @Entity()
 export class Inventario {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  nombre: string;
+
   @Column('int')
   cantidad: number;
 
-  @Column()
+  @UpdateDateColumn({ type: 'timestamp' })
   fecha_actualizacion: Date;
 }

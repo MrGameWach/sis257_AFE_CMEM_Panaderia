@@ -21,7 +21,7 @@ export class EmpleadoService {
     const empleado = new Empleado();
     empleado.nombre = createEmpleadoDto.nombre.trim();
     empleado.rol=createEmpleadoDto.rol.trim();
-    //empleado.fechaContratacion.getDate;
+    empleado.fechaContratacion=createEmpleadoDto.fechaContratacion;
     return this.empleadosRepository.save(empleado);
   }
 
@@ -38,6 +38,9 @@ export class EmpleadoService {
 
   async update(id: number, updateEmpleadoDto: UpdateEmpleadoDto): Promise<Empleado> {
     const empleado = await this.findOne(id);
+    empleado.nombre=updateEmpleadoDto.nombre.trim();
+    empleado.rol=updateEmpleadoDto.rol.trim();
+    empleado.fechaContratacion=updateEmpleadoDto.fechaContratacion;
     const empleadoUpdate = Object.assign(empleado, UpdateEmpleadoDto)
     return this.empleadosRepository.save(empleadoUpdate);
   }

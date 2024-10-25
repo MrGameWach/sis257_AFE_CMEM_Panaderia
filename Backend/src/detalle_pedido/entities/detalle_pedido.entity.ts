@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Pedido } from 'src/pedido/entities/pedido.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, OneToOne, JoinColumn } from 'typeorm';
 
-@Entity()
+@Entity('detalle-pedidos')
 export class DetallePedido {
   @PrimaryGeneratedColumn()
   id: number;

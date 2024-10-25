@@ -13,13 +13,14 @@ export class PedidoService {
   ){}
   async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
     const existe = await this.pedidosRepository.findOneBy({
-      fecha:createPedidoDto.fecha
+      fecha:createPedidoDto.fecha,
+      total:createPedidoDto.total,
     });
     if (existe) throw new ConflictException('el pedido ya existe')
 
     const pedido = new Pedido();
     pedido.fecha=createPedidoDto.fecha;
-    
+    pedido.total=createPedidoDto.total;
     return this.pedidosRepository.save(pedido);
   }
 
@@ -36,6 +37,8 @@ export class PedidoService {
 
   async update(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
     const pedido = await this.findOne(id);
+    pedido.total=updatePedidoDto.total;
+    pedido.fecha=updatePedidoDto.fecha;
     const pedidoUpdate = Object.assign(pedido, UpdatePedidoDto)
     return this.pedidosRepository.save(pedidoUpdate);
   }
