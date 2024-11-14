@@ -69,7 +69,7 @@
               </div>
               <div class="artists-hover">
                 <p><strong>Marraqueta</strong></p>
-                <p><strong>Tradicional de La Paz </strong>z</p>
+                <p><strong>Tradicional de La Paz </strong></p>
                 <p><strong>Ingredientes</strong> 100% Naturales</p>
                 <hr />
             </div>
@@ -96,9 +96,9 @@
 <style scoped>
 .hero-section {
   background-image: url('@/assets/panaderia.jpg');
-  background-size: cover; /* Asegura que la imagen cubra todo el espacio */
-  background-position: center; /* Centra la imagen */
-  background-attachment: fixed; /* Fija la imagen mientras se desplaza */
+  background-size: cover; 
+  background-position: center;
+  background-attachment: fixed; 
   height: 900px; 
   display: flex;
   align-items: center;
