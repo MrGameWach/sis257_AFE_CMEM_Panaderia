@@ -20,15 +20,36 @@ const router = createRouter({
       name: 'prueba',
       component: () => import('../views/PruebaView.vue')
     },
+    
     {
-      path: '/interpretes',
-      name: 'interpretes',
-      component: () => import('../views/InterpreteView.vue')
+      path: '/clientes',
+      name: 'clientes',
+      component: () => import('../views/ClienteView.vue')
     },
     {
-      path: '/canciones',
-      name: 'canciones',
-      component: () => import('../views/CancionView.vue')
+      path:'/empleados',
+      name:'empleados',
+      component:()=> import('../views/EmpleadoView.vue')
+    },
+    {
+      path:'/inventarios',
+      name:'inventarios',
+      component:()=> import('../views/InventarioView.vue')
+    },
+    {
+      path:'/pedidos',
+      name:'pedidos',
+      component:()=> import('../views/PedidoView.vue')
+    },
+    {
+      path:'/productos',
+      name:'productos',
+      component:()=> import('../views/ProductoView.vue')
+    },
+    {
+      path:'/proveedores',
+      name:'proveedores',
+      component:()=> import('../views/ProveedorView.vue')
     },
   ]
 })

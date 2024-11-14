@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import CancionList from '@/components/cancion/CancionList.vue'
-import CancionSave from '@/components/cancion/CancionSave.vue'
+import PedidoList from '@/components/pedido/PedidoList.vue'
+import PedidoSave from '@/components/pedido/PedidoSave.vue'
 import Button from 'primevue/button'
 import { ref } from 'vue'
 
 const mostrarDialog = ref<boolean>(false)
-const cancionListRef = ref<typeof CancionList | null>(null)
-const cancionEdit = ref<any>(null)
+const pedidoListRef = ref<typeof PedidoList | null>(null)
+const pedidoEdit = ref<any>(null)
 
 function hableCreate() {
-  cancionEdit.value = null
+  pedidoEdit.value = null
   mostrarDialog.value = true
 }
 
-function handleEdit(cancion: any) {
-  cancionEdit.value = cancion
+function handleEdit(pedido: any) {
+  pedidoEdit.value = pedido
   mostrarDialog.value = true
 }
 
@@ -23,19 +23,19 @@ function handleCloseDialog() {
 }
 
 function handleGuardar() {
-  cancionListRef.value?.obtenerLista()
+  pedidoListRef.value?.obtenerLista()
 }
 </script>
 
 <template>
   <div class="m-8">
-    <h1>Canciones</h1>
+    <h1>Pedidos</h1>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="hableCreate" />
-    <CancionList ref="cancionListRef" @edit="handleEdit" />
-    <CancionSave
+    <PedidoList ref="pedidoListRef" @edit="handleEdit" />
+    <PedidoSave
       :mostrar="mostrarDialog"
-      :cancion="cancionEdit"
-      :modoEdicion="!!cancionEdit"
+      :pedido="pedidoEdit"
+      :modoEdicion="!!pedidoEdit"
       @guardar="handleGuardar"
       @close="handleCloseDialog"
     />

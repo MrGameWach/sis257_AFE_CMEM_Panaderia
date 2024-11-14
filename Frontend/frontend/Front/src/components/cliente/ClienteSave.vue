@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { Interprete } from '@/models/interprete'
+import type { Cliente } from '@/models/cliente'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
 
-const ENDPOINT = 'interpretes'
+const ENDPOINT = 'clientes'
 const props = defineProps({
   mostrar: Boolean,
-  interprete: {
-    type: Object as () => Interprete,
-    default: () => ({}) as Interprete
+  cliente: {
+    type: Object as () => Cliente,
+    default: () => ({}) as Cliente
   },
   modoEdicion: Boolean
 })
@@ -24,27 +24,28 @@ const dialogVisible = computed({
   }
 })
 
-const interprete = ref<Interprete>({ ...props.interprete })
+const cliente = ref<Cliente>({ ...props.cliente })
 watch(
-  () => props.interprete,
+  () => props.cliente,
   (newVal) => {
-    interprete.value = { ...newVal }
+    cliente.value = { ...newVal }
   }
 )
 
 async function handleSave() {
   try {
     const body = {
-      nombre: interprete.value.nombre,
-      nacionalidad: interprete.value.nacionalidad
+      nombre: cliente.value.nombre,
+      email:cliente.value.email,
+      telefono:cliente.value.telefono,
     }
     if (props.modoEdicion) {
-      await http.patch(`${ENDPOINT}/${interprete.value.id}`, body)
+      await http.patch(`${ENDPOINT}/${cliente.value.id}`, body)
     } else {
       await http.post(ENDPOINT, body)
     }
     emit('guardar')
-    interprete.value = {} as Interprete
+    cliente.value = {} as Cliente
     dialogVisible.value = false
   } catch (error: any) {
     alert(error?.response?.data?.message)
@@ -63,17 +64,27 @@ async function handleSave() {
         <label for="nombre" class="font-semibold w-4">Nombre</label>
         <InputText
           id="nombre"
-          v-model="interprete.nombre"
+          v-model="cliente.nombre"
           class="flex-auto"
           autocomplete="off"
           autofocus
         />
       </div>
       <div class="flex items-center gap-4 mb-4">
-        <label for="nacionalidad" class="font-semibold w-4">Nacionalidad</label>
+        <label for="email" class="font-semibold w-4">Email</label>
         <InputText
-          id="nacionalidad"
-          v-model="interprete.nacionalidad"
+          id="email"
+          v-model="cliente.email"
+          class="flex-auto"
+          autocomplete="off"
+          autofocus
+        />
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="telefono" class="font-semibold w-4">Telefono</label>
+        <InputText
+          id="telefono"
+          v-model="cliente.telefono"
           class="flex-auto"
           autocomplete="off"
           autofocus
@@ -94,3 +105,5 @@ async function handleSave() {
 </template>
 
 <style scoped></style>
+
+

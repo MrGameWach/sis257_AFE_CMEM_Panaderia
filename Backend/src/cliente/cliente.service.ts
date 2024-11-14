@@ -23,7 +23,6 @@ export class ClienteService {
     cliente.nombre = createClienteDto.nombre.trim();
     cliente.email=createClienteDto.email.trim();
     cliente.telefono=createClienteDto.telefono.trim();
-    cliente.idPedido=createClienteDto.idPedido;
     return this.clientesRepository.save(cliente);
   }
 

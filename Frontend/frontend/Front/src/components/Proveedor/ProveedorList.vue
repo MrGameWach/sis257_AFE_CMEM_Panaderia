@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { Interprete } from '@/models/interprete'
+import type { Proveedor } from '@/models/proveedor'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { onMounted, ref } from 'vue'
 
-const ENDPOINT = 'interpretes'
-let interpretes = ref<Interprete[]>([])
+const ENDPOINT = 'proveedores'
+let proveedores = ref<Proveedor[]>([])
 const emit = defineEmits(['edit'])
-const interpreteDelete = ref<Interprete | null>(null)
+const proveedorDelete = ref<Proveedor | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
 
 async function obtenerLista() {
-  interpretes.value = await http.get(ENDPOINT).then((response) => response.data)
+  proveedors.value = await http.get(ENDPOINT).then((response) => response.data)
 }
 
-function emitirEdicion(interprete: Interprete) {
-  emit('edit', interprete)
+function emitirEdicion(proveedor: Proveedor) {
+  emit('edit', proveedor)
 }
 
-function mostrarEliminarConfirm(interprete: Interprete) {
-  interpreteDelete.value = interprete
+function mostrarEliminarConfirm(proveedor: Proveedor) {
+  proveedorDelete.value = proveedor
   mostrarConfirmDialog.value = true
 }
 
 async function eliminar() {
-  await http.delete(`${ENDPOINT}/${interpreteDelete.value?.id}`)
+  await http.delete(`${ENDPOINT}/${proveedorDelete.value?.id}`)
   obtenerLista()
   mostrarConfirmDialog.value = false
 }
@@ -43,27 +43,29 @@ defineExpose({ obtenerLista })
         <tr>
           <th>Nro.</th>
           <th>Nombre</th>
-          <th>Nacionalidad</th>
+          <th>Telefono</th>
+          <th>Direccion</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(interprete, index) in interpretes" :key="interprete.id">
+        <tr v-for="(proveedor, index) in proveedors" :key="proveedor.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ interprete.nombre }}</td>
-          <td>{{ interprete.nacionalidad }}</td>
+          <td>{{ proveedor.nombre }}</td>
+          <td>{{ proveedor.telefono }}</td>
+          <td>{{ proveedor.direccion }}</td>
           <td>
             <Button
               icon="pi pi-pencil"
               aria-label="Editar"
               text
-              @click="emitirEdicion(interprete)"
+              @click="emitirEdicion(proveedor)"
             />
             <Button
               icon="pi pi-trash"
               aria-label="Eliminar"
               text
-              @click="mostrarEliminarConfirm(interprete)"
+              @click="mostrarEliminarConfirm(proveedor)"
             />
           </td>
         </tr>

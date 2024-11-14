@@ -1,0 +1,100 @@
+<script setup lang="ts">
+import type { Empleado } from '@/models/empleado'
+import http from '@/plugins/axios'
+import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
+import { computed, ref, watch } from 'vue'
+
+const ENDPOINT = 'empleados'
+const props = defineProps({
+  mostrar: Boolean,
+  empleado: {
+    type: Object as () => Empleado,
+    default: () => ({}) as Empleado
+  },
+  modoEdicion: Boolean
+})
+const emit = defineEmits(['guardar', 'close'])
+
+const dialogVisible = computed({
+  get: () => props.mostrar,
+  set: (value) => {
+    if (!value) emit('close')
+  }
+})
+
+const empleado = ref<Empleado>({ ...props.empleado })
+watch(
+  () => props.empleado,
+  (newVal) => {
+    empleado.value = { ...newVal }
+  }
+)
+
+async function handleSave() {
+  try {
+    const body = {
+      nombre: empleado.value.nombre,
+      nacionalidad: empleado.value.nacionalidad
+    }
+    if (props.modoEdicion) {
+      await http.patch(`${ENDPOINT}/${empleado.value.id}`, body)
+    } else {
+      await http.post(ENDPOINT, body)
+    }
+    emit('guardar')
+    empleado.value = {} as Empleado
+    dialogVisible.value = false
+  } catch (error: any) {
+    alert(error?.response?.data?.message)
+  }
+}
+</script>
+
+<template>
+  <div class="card flex justify-center">
+    <Dialog
+      v-model:visible="dialogVisible"
+      :header="props.modoEdicion ? 'Editar' : 'Crear'"
+      style="width: 25rem"
+    >
+      <div class="flex items-center gap-4 mb-4">
+        <label for="nombre" class="font-semibold w-4">Nombre</label>
+        <InputText
+          id="nombre"
+          v-model="empleado.nombre"
+          class="flex-auto"
+          autocomplete="off"
+          autofocus
+        />
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="nacionalidad" class="font-semibold w-4">Nacionalidad</label>
+        <InputText
+          id="nacionalidad"
+          v-model="empleado.nacionalidad"
+          class="flex-auto"
+          autocomplete="off"
+          autofocus
+        />
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="fechaIngreso">Fecha de Ingreso</label>
+        <Calendar id="fechaIngreso" v-model="empleado.fechaIngreso" dateFormat="yy-mm-dd" showIcon></Calendar>
+      </div>
+      <div class="flex justify-end gap-2">
+        <Button
+          type="button"
+          label="Cancelar"
+          icon="pi pi-times"
+          severity="secondary"
+          @click="dialogVisible = false"
+        ></Button>
+        <Button type="button" label="Guardar" icon="pi pi-save" @click="handleSave"></Button>
+      </div>
+    </Dialog>
+  </div>
+</template>
+
+<style scoped></style>
