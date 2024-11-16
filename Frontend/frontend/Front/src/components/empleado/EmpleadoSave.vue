@@ -2,6 +2,7 @@
 import type { Empleado } from '@/models/empleado'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
+import DatePicker from 'primevue/datepicker'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
@@ -36,7 +37,8 @@ async function handleSave() {
   try {
     const body = {
       nombre: empleado.value.nombre,
-      nacionalidad: empleado.value.nacionalidad
+      rol: empleado.value.rol,
+      fechaContratacion:empleado.value.fechaContratacion,
     }
     if (props.modoEdicion) {
       await http.patch(`${ENDPOINT}/${empleado.value.id}`, body)
@@ -69,19 +71,10 @@ async function handleSave() {
           autofocus
         />
       </div>
+      
       <div class="flex items-center gap-4 mb-4">
-        <label for="nacionalidad" class="font-semibold w-4">Nacionalidad</label>
-        <InputText
-          id="nacionalidad"
-          v-model="empleado.nacionalidad"
-          class="flex-auto"
-          autocomplete="off"
-          autofocus
-        />
-      </div>
-      <div class="flex items-center gap-4 mb-4">
-        <label for="fechaIngreso">Fecha de Ingreso</label>
-        <Calendar id="fechaIngreso" v-model="empleado.fechaIngreso" dateFormat="yy-mm-dd" showIcon></Calendar>
+        <label for="fechaContratacion" class="font-semibold w-4">Fecha de Ingreso</label>
+        <datepicker id="fechaContratacion" v-model="empleado.fechaContratacion"></datepicker>
       </div>
       <div class="flex justify-end gap-2">
         <Button

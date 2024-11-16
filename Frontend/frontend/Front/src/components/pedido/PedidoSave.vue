@@ -5,6 +5,7 @@ import type { Empleado } from '@/models/empleado'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import InputNumber from 'primevue/inputnumber'
 import InputMask from 'primevue/inputmask'
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
@@ -41,7 +42,6 @@ watch(
     async (newVal) => {
         pedido.value = { ...newVal }
     }
-  }
 )
 
 async function obtenerEmpleados() {
@@ -58,7 +58,7 @@ async function handleSave() {
         const body = {
             idCliente: pedido.value.cliente.id,
             idEmpleado: pedido.value.empleado.id,
-            total: pedido.value.pedido,
+            total: pedido.value.total,
             fecha: pedido.value.fecha,
         }
         if (props.modoEdicion) {
@@ -79,7 +79,6 @@ watch(
     (nuevoValor) => {
         if (nuevoValor) {
             obtenerEmpleados()
-            obtenerInterpretes()
         }
     }
 )
@@ -89,15 +88,17 @@ watch(
     <div class="card flex justify-center">
         <Dialog v-model:visible="dialogVisible" :header="(props.modoEdicion ? 'Editar' : 'Crear') + ' Canción'"
             style="width: 25rem">
-            <div class="flex items-center gap-4 mb-4"> 
-                <label for="fecha">Fecha de Pedido</label>
-                <Calendar id="fecha" v-model="pedido.fecha" dateFormat="yy-mm-dd" showIcon></Calendar>
+            <div class="flex items-center gap-4 mb-4">
+                <label for="fecha" class="font-semibold w-4">Fecha</label>
+                <datepicker id="fecha" v-model="pedido.fecha"></datepicker>
             </div>
-            
+            <div class="flex items-center gap-4 mb-4">
+                <label for="total" class="font-semibold w-4" >Total</label>
+                <InputNumber id="total" v-model="pedido.total"></InputNumber>
+            </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="empleado" class="font-semibold w-4">Empleado</label>
-                <Select id="empleado" v-model="pedido.empleado" :options="empleado" optionLabel="nombre"
-                    class="flex-auto" />
+                <Select id="empleado" v-model="pedido.empleado" optionLabel="nombre" class="flex-auto" />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="cliente" class="font-semibold w-4">Cliente</label>
