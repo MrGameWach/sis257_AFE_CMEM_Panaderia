@@ -18,7 +18,4 @@ export class Cliente {
   @OneToMany(()=>Pedido,(pedido)=>pedido.total)
   pedidos:Pedido;
 
-  @Column('integer',{name:'id_pedido'})
-  idPedido: number;
-
 }

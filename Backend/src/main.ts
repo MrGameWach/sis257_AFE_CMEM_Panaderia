@@ -15,7 +15,13 @@ async function bootstrap() {
     .setTitle('API Rest SIS257')
     .setDescription('API Rest de la materia Desarrollo de App Int/Internet II Laboratorio')
     .setVersion('1.0')
-    .addTag('Panaderia')
+    .addTag('Cliente,detalle_pedido,inventario,pedido,producto,proveedor')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      in: 'Header'
+    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('apidoc', app, document);

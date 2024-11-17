@@ -82,7 +82,8 @@
               <div class="artists-hover">
                 <p><strong>Croasant</strong></p>
                 <p><strong>Pan Semi dulce</strong> con queso</p>
-                <p><strong>De oriogen </strong> Franses</p>
+
+                <p><strong>De origen </strong> Franses</p>
                 <hr />
               </div>
             </div>

@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductoModule } from './producto/producto.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { PedidoModule } from './pedido/pedido.module';
-import { DetallePedidoModule } from './detalle_pedido/detalle_pedido.module';
 import { EmpleadoModule } from './empleado/empleado.module';
 import { ProveedorModule } from './proveedor/proveedor.module';
 import { InventarioModule } from './inventario/inventario.module';
@@ -28,7 +27,6 @@ import { InventarioModule } from './inventario/inventario.module';
     ProductoModule,
     ClienteModule,
     PedidoModule,
-    DetallePedidoModule,
     EmpleadoModule,
     ProveedorModule,
     InventarioModule,

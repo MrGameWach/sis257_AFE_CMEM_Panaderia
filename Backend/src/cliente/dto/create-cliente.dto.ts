@@ -20,8 +20,4 @@ export class CreateClienteDto {
     @MaxLength(8, { message: '50 caracters como maximo' })
     readonly telefono: string;
 
-    @ApiProperty()
-    @IsDefined({ message: 'El campo idPedido tiene que ser definido'})
-    @IsNumber({},{message:'El campo tiene que ser numerico'})
-    readonly idPedido: number;
 }

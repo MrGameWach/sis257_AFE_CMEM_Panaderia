@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { Cancion } from '@/models/cancion'
+import type { Producto } from '@/models/producto'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { onMounted, ref } from 'vue'
 
-const ENDPOINT = 'canciones'
-let canciones = ref<Cancion[]>([])
+const ENDPOINT = 'productos'
+let productos = ref<Producto[]>([])
 const emit = defineEmits(['edit'])
-const cancionDelete = ref<Cancion | null>(null)
+const productoDelete = ref<Producto | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
 
 async function obtenerLista() {
-  canciones.value = await http.get(ENDPOINT).then((response) => response.data)
+  productos.value = await http.get(ENDPOINT).then((response) => response.data)
 }
 
-function emitirEdicion(cancion: Cancion) {
-  emit('edit', cancion)
+function emitirEdicion(producto: Producto) {
+  emit('edit', producto)
 }
 
-function mostrarEliminarConfirm(cancion: Cancion) {
-  cancionDelete.value = cancion
+function mostrarEliminarConfirm(producto: Producto) {
+  productoDelete.value = producto
   mostrarConfirmDialog.value = true
 }
 
 async function eliminar() {
-  await http.delete(`${ENDPOINT}/${cancionDelete.value?.id}`)
+  await http.delete(`${ENDPOINT}/${productoDelete.value?.id}`)
   obtenerLista()
   mostrarConfirmDialog.value = false
 }
@@ -42,35 +42,32 @@ defineExpose({ obtenerLista })
       <thead>
         <tr>
           <th>Nro.</th>
-          <th>Género</th>
-          <th>Intérprete</th>
-          <th>Album</th>
           <th>Nombre</th>
-          <th>Duración</th>
-          <th>Tags</th>
-          <th>URL</th>
+          <th>Precio</th>
+          <th>Tipo</th>
+          <th>Cantidad disponible</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(cancion, index) in canciones" :key="cancion.id">
+        <tr v-for="(producto, index) in productos" :key="producto.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ cancion.genero.descripcion }}</td>
-          <td>{{ cancion.album.interprete.nombre }}</td>
-          <td>{{ cancion.album.nombre }}</td>
-          <td>{{ cancion.nombre }}</td>
-          <td>{{ cancion.duracion }}</td>
-          <td>{{ cancion.tags }}</td>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.precio }}</td>
+          <td>{{ producto.tipo }}</td>
+          <td>{{ producto.cantidadDisponible }}</td>
           <td>
-            <a :href="cancion.url" target="_blank">{{ cancion.url }}</a>
-          </td>
-          <td>
-            <Button icon="pi pi-pencil" aria-label="Editar" text @click="emitirEdicion(cancion)" />
+            <Button
+              icon="pi pi-pencil"
+              aria-label="Editar"
+              text
+              @click="emitirEdicion(producto)"
+            />
             <Button
               icon="pi pi-trash"
               aria-label="Eliminar"
               text
-              @click="mostrarEliminarConfirm(cancion)"
+              @click="mostrarEliminarConfirm(producto)"
             />
           </td>
         </tr>

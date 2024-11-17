@@ -30,17 +30,23 @@ const location = useRoute()
             <li class="nav-item">
               <RouterLink to="/" class="nav-link click-scroll text-dark">Inicio</RouterLink>
             </li>
-
             <li class="nav-item">
-              <RouterLink to="/about" class="nav-link click-scroll text-dark">Acerca De</RouterLink>
+              <RouterLink to="/clientes" class="nav-link click-scroll text-dark">Clientes</RouterLink>
             </li>
-
             <li class="nav-item">
-              <RouterLink to="/interpretes" class="nav-link click-scroll text-dark">Intérpretes</RouterLink>
+              <RouterLink to="/empleados" class="nav-link click-scroll text-dark">Empleados</RouterLink>
             </li>
-
             <li class="nav-item">
-              <RouterLink to="/canciones" class="nav-link click-scroll text-dark">Canciones</RouterLink>
+              <RouterLink to="/inventarios" class="nav-link click-scroll text-dark">Inventarios</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/pedidos" class="nav-link click-scroll text-dark">Pedidos</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/productos" class="nav-link click-scroll text-dark">Productos</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/proveedores" class="nav-link click-scroll text-dark">Proveedoress</RouterLink>
             </li>
           </ul>
         </div>

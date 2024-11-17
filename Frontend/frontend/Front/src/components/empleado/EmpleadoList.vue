@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { Interprete } from '@/models/interprete'
+import type { Empleado } from '@/models/empleado'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { onMounted, ref } from 'vue'
 
-const ENDPOINT = 'interpretes'
-let interpretes = ref<Interprete[]>([])
+const ENDPOINT = 'empleados'
+let empleados = ref<Empleado[]>([])
 const emit = defineEmits(['edit'])
-const interpreteDelete = ref<Interprete | null>(null)
+const empleadoDelete = ref<Empleado | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
 
 async function obtenerLista() {
-  interpretes.value = await http.get(ENDPOINT).then((response) => response.data)
+  empleados.value = await http.get(ENDPOINT).then((response) => response.data)
 }
 
-function emitirEdicion(interprete: Interprete) {
-  emit('edit', interprete)
+function emitirEdicion(empleado: Empleado) {
+  emit('edit', empleado)
 }
 
-function mostrarEliminarConfirm(interprete: Interprete) {
-  interpreteDelete.value = interprete
+function mostrarEliminarConfirm(empleado: Empleado) {
+  empleadoDelete.value = empleado
   mostrarConfirmDialog.value = true
 }
 
 async function eliminar() {
-  await http.delete(`${ENDPOINT}/${interpreteDelete.value?.id}`)
+  await http.delete(`${ENDPOINT}/${empleadoDelete.value?.id}`)
   obtenerLista()
   mostrarConfirmDialog.value = false
 }
@@ -43,27 +43,29 @@ defineExpose({ obtenerLista })
         <tr>
           <th>Nro.</th>
           <th>Nombre</th>
-          <th>Nacionalidad</th>
+          <th>Rol</th>
+          <th>Fecha de contratacion</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(interprete, index) in interpretes" :key="interprete.id">
+        <tr v-for="(empleado, index) in empleados" :key="empleado.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ interprete.nombre }}</td>
-          <td>{{ interprete.nacionalidad }}</td>
+          <td>{{ empleado.nombre }}</td>
+          <td>{{ empleado.rol }}</td>
+          <td>{{ empleado.fechaContratacion }}</td>
           <td>
             <Button
               icon="pi pi-pencil"
               aria-label="Editar"
               text
-              @click="emitirEdicion(interprete)"
+              @click="emitirEdicion(empleado)"
             />
             <Button
               icon="pi pi-trash"
               aria-label="Eliminar"
               text
-              @click="mostrarEliminarConfirm(interprete)"
+              @click="mostrarEliminarConfirm(empleado)"
             />
           </td>
         </tr>
