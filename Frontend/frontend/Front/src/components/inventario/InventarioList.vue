@@ -52,7 +52,7 @@ defineExpose({ obtenerLista })
         <tr v-for="(inventario, index) in inventarios" :key="inventario.id">
           <td>{{ index + 1 }}</td>
           <td>{{ inventario.nombre }}</td>
-          <td>{{ inventario.Cantidad }}</td>
+          <td>{{ inventario.cantidad }}</td>
           <td>{{ inventario.fechaActualizacion }}</td>
           <td>
             <Button

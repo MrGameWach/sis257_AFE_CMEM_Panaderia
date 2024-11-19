@@ -17,7 +17,7 @@ const props = defineProps({
   modoEdicion: Boolean
 })
 const emit = defineEmits(['guardar', 'close'])
-
+const date = ref();
 const dialogVisible = computed({
   get: () => props.mostrar,
   set: (value) => {
@@ -38,7 +38,7 @@ async function handleSave() {
     const body = {
       nombre: empleado.value.nombre,
       rol: empleado.value.rol,
-      fechaContratacion:empleado.value.fechaContratacion,
+      fechaContratacion: empleado.value.fechaContratacion,
     }
     if (props.modoEdicion) {
       await http.patch(`${ENDPOINT}/${empleado.value.id}`, body)
@@ -56,34 +56,23 @@ async function handleSave() {
 
 <template>
   <div class="card flex justify-center">
-    <Dialog
-      v-model:visible="dialogVisible"
-      :header="props.modoEdicion ? 'Editar' : 'Crear'"
-      style="width: 25rem"
-    >
+    <Dialog v-model:visible="dialogVisible" :header="props.modoEdicion ? 'Editar' : 'Crear'" style="width: 25rem">
       <div class="flex items-center gap-4 mb-4">
         <label for="nombre" class="font-semibold w-4">Nombre</label>
-        <InputText
-          id="nombre"
-          v-model="empleado.nombre"
-          class="flex-auto"
-          autocomplete="off"
-          autofocus
-        />
+        <InputText id="nombre" v-model="empleado.nombre" class="flex-auto" autocomplete="off" autofocus />
       </div>
-      
       <div class="flex items-center gap-4 mb-4">
-        <label for="fechaContratacion" class="font-semibold w-4">Fecha de Ingreso</label>
-        <datepicker id="fechaContratacion" v-model="empleado.fechaContratacion"></datepicker>
+        <label for="rol" class="font-semibold w-4">Rol</label>
+        <InputText id="rol" v-model="empleado.rol" class="flex-auto" autocomplete="off" autofocus />
       </div>
+      <div class="flex justify-end gap-4 mb-4">
+        <label for="fechaContratacion" class="font-semibold w-4">Fecha de Ingreso</label>
+        <DatePicker id="fechaContratacion" v-model="empleado.fechaContratacion" class="flex-auto" autocomplete="off" />
+      </div>
+
       <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          icon="pi pi-times"
-          severity="secondary"
-          @click="dialogVisible = false"
-        ></Button>
+        <Button type="button" label="Cancelar" icon="pi pi-times" severity="secondary"
+          @click="dialogVisible = false"></Button>
         <Button type="button" label="Guardar" icon="pi pi-save" @click="handleSave"></Button>
       </div>
     </Dialog>

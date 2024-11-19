@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { Interprete } from '@/models/interprete'
+import type { Inventario } from '@/models/inventario'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
 
-const ENDPOINT = 'interpretes'
+const ENDPOINT = 'inventarios'
 const props = defineProps({
     mostrar: Boolean,
-    interprete: {
-        type: Object as () => Interprete,
-        default: () => ({}) as Interprete
+    inventario: {
+        type: Object as () => Inventario,
+        default: () => ({}) as Inventario
     },
     modoEdicion: Boolean
 })
@@ -24,27 +24,28 @@ const dialogVisible = computed({
     }
 })
 
-const interprete = ref<Interprete>({ ...props.interprete })
+const inventario = ref<Inventario>({ ...props.inventario })
 watch(
-    () => props.interprete,
+    () => props.inventario,
     (newVal) => {
-        interprete.value = { ...newVal }
+        inventario.value = { ...newVal }
     }
 )
 
 async function handleSave() {
     try {
         const body = {
-            nombre: interprete.value.nombre,
-            nacionalidad: interprete.value.nacionalidad
+            nombre: inventario.value.nombre,    
+            cantidad: inventario.value.cantidad,
+            fechaActualizacion: inventario.value.fechaActualizacion
         }
         if (props.modoEdicion) {
-            await http.patch(`${ENDPOINT}/${interprete.value.id}`, body)
+            await http.patch(`${ENDPOINT}/${inventario.value.id}`, body)
         } else {
             await http.post(ENDPOINT, body)
         }
         emit('guardar')
-        interprete.value = {} as Interprete
+        inventario.value = {} as Inventario
         dialogVisible.value = false
     } catch (error: any) {
         alert(error?.response?.data?.message)
@@ -57,11 +58,11 @@ async function handleSave() {
         <Dialog v-model:visible="dialogVisible" :header="props.modoEdicion ? 'Editar' : 'Crear'" style="width: 25rem">
             <div class="flex items-center gap-4 mb-4">
                 <label for="nombre" class="font-semibold w-4">Nombre</label>
-                <InputText id="nombre" v-model="interprete.nombre" class="flex-auto" autocomplete="off" autofocus />
+                <InputText id="nombre" v-model="inventario.nombre" class="flex-auto" autocomplete="off" autofocus />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="cantidad" class="font-semibold w-4">Cantidad</label>
-                <InputText id="cantidad" v-model="interprete.cantidad" class="flex-auto" autocomplete="off" autofocus />
+                <InputText id="cantidad" v-model="inventario.cantidad" class="flex-auto" autocomplete="off" autofocus />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="fechaActualizacion">Fecha de actualizacion</label>
