@@ -9,6 +9,9 @@ import { PedidoModule } from './pedido/pedido.module';
 import { EmpleadoModule } from './empleado/empleado.module';
 import { ProveedorModule } from './proveedor/proveedor.module';
 import { InventarioModule } from './inventario/inventario.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { AuthModule } from './auth/auth.module';
+
 
 @Module({
   imports: [
@@ -29,7 +32,9 @@ import { InventarioModule } from './inventario/inventario.module';
     PedidoModule,
     EmpleadoModule,
     ProveedorModule,
+    UsuariosModule,
     InventarioModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
