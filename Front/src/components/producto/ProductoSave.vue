@@ -84,17 +84,19 @@ watch(
                 <label for="nombre" class="font-semibold w-4">Nombre</label>
                 <InputText id="nombre" v-model="producto.nombre" class="flex-auto" autocomplete="off" autofocus="" />
             </div>
+            
             <div class="flex items-center gap-4 mb-4">
                 <label for="precio" class="font-semibold w-4">Precio</label>
-                <ImputText id="precio" v-model="producto.precio" class="flex-auto" autcomplete="off" autofocus="" />
+                <InputText id="precio" v-model="producto.precio" class="flex-auto" autocomplete="off" autofocus />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="tipo" class="font-semibold w-4">Tipo</label>
                 <InputText id="tipo" v-model="producto.tipo" class="flex-auto" autocomplete="off" autofocus=""/>
             </div>
+            
             <div class="flex items-center gap-4 mb-4">
                 <label for="cantidadDisponible" class="font-semibold w-4">Cantidad disponible</label>
-                <InputText id="cantidadDisponible" v-model="producto.cantidadDisponible" class="flex-auto" autocomplete="off" autofocus=""/>
+                <InputText id="cantidadDisponible" v-model="producto.cantidadDisponible" class="flex-auto" autocomplete="off" autofocus />
             </div>
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancelar" icon="pi pi-times" severity="secondary"

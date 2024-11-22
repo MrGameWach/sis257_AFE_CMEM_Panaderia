@@ -22,6 +22,7 @@ const emit = defineEmits(['guardar', 'close'])
 
 const productos = ref<Producto[]>([])
 
+const producto = ref<Producto>({} as Producto)
 const proveedor = ref<Proveedor>({ ...props.proveedor })
 
 const dialogVisible = computed({
@@ -36,6 +37,9 @@ watch(
     () => props.proveedor,
     async (newVal) => {
         proveedor.value = { ...newVal }
+        producto.value=proveedor.value.producto;
+        if(producto.value?.id)
+        await obtenerProductos()
     }
 )
 
@@ -81,7 +85,8 @@ watch(
             style="width: 25rem">
             <div class="flex items-center gap-4 mb-4">
                 <label for="producto" class="font-semibold w-4">Nombre producto</label>
-                <InputText id="producto" v-model="proveedor.producto.nombre" class="flex-auto" autocomplete="off" autofocus="" />
+                <InputText id="producto" v-model="proveedor.producto.nombre" class="flex-auto" autocomplete="off"
+                    autofocus="" />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="nombre" class="font-semibold w-4">Nombre</label>
@@ -89,13 +94,15 @@ watch(
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="telefono" class="font-semibold w-4">Telefono</label>
-                <ImputText id="telefono" v-model="proveedor.telefono" class="flex-auto" autcomplete="off" autofocus="" />
+                <ImputText id="telefono" v-model="proveedor.telefono" class="flex-auto" autcomplete="off"
+                    autofocus="" />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="direccion" class="font-semibold w-4">Direccion</label>
-                <InputText id="direccion" v-model="proveedor.direccion" class="flex-auto" autocomplete="off" autofocus=""/>
+                <InputText id="direccion" v-model="proveedor.direccion" class="flex-auto" autocomplete="off"
+                    autofocus="" />
             </div>
-            
+
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancelar" icon="pi pi-times" severity="secondary"
                     @click="dialogVisible = false"></Button>

@@ -17,7 +17,7 @@ export class Producto {
   tipo: string;
 
   @Column('int')
-  cantidad_disponible: number;
+  cantidadDisponible: number;
 
   @OneToMany(()=>Proveedor,(proveedor)=>proveedor.nombre)
   proveedores: Proveedor[];

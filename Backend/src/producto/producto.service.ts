@@ -16,7 +16,7 @@ export class ProductoService {
       nombre: createProductoDto.nombre.trim(),
       precio: createProductoDto.precio,
       tipo: createProductoDto.tipo.trim(),
-      cantidad_disponible: createProductoDto.cantidad_disponible
+      cantidadDisponible: createProductoDto.cantidadDisponible
     });
     if (existe) throw new ConflictException('el producto ya existe')
 
@@ -24,7 +24,7 @@ export class ProductoService {
     producto.nombre = createProductoDto.nombre.trim();
     producto.precio = createProductoDto.precio;
     producto.tipo = createProductoDto.tipo.trim();
-    producto.cantidad_disponible = createProductoDto.cantidad_disponible;
+    producto.cantidadDisponible = createProductoDto.cantidadDisponible;
     return this.productosRepository.save(producto);
   }
 
@@ -44,7 +44,7 @@ export class ProductoService {
     producto.nombre = updateProductoDto.nombre.trim();
     producto.precio = updateProductoDto.precio;
     producto.tipo = updateProductoDto.tipo.trim();
-    producto.cantidad_disponible = updateProductoDto.cantidad_disponible;
+    producto.cantidadDisponible = updateProductoDto.cantidadDisponible;
     const productoUpdate = Object.assign(producto, UpdateProductoDto)
     return this.productosRepository.save(productoUpdate);
   }

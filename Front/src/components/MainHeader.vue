@@ -46,15 +46,16 @@ const location = useRoute()
               <RouterLink to="/productos" class="nav-link click-scroll text-dark">Productos</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/proveedores" class="nav-link click-scroll text-dark">Proveedoress</RouterLink>
+              <RouterLink to="/proveedores" class="nav-link click-scroll text-dark">Proveedores</RouterLink>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-  </div>
+  </div><br><br>
 </template>
 
+  
 <style scoped>
 
 .text-large {

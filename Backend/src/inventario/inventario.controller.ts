@@ -4,8 +4,8 @@ import { CreateInventarioDto } from './dto/create-inventario.dto';
 import { UpdateInventarioDto } from './dto/update-inventario.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('inventario')
-@Controller('inventario')
+@ApiTags('inventarios')
+@Controller('inventarios')
 export class InventarioController {
   constructor(private readonly inventarioService: InventarioService) {}
 

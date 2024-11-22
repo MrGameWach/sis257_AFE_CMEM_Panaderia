@@ -4,8 +4,8 @@ import { CreateProveedorDto } from './dto/create-proveedor.dto';
 import { UpdateProveedorDto } from './dto/update-proveedor.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('proveedor')
-@Controller('proveedor')
+@ApiTags('proveedores')
+@Controller('proveedores')
 export class ProveedorController {
   constructor(private readonly proveedorService: ProveedorService) {}
 

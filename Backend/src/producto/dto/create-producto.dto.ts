@@ -24,6 +24,6 @@ export class CreateProductoDto {
     @IsNotEmpty({ message: 'el campo no puede estar vacio' })
     @IsNumber()
     @Min(0, { message: 'el campo no debe ser negativo' })
-    readonly cantidad_disponible: number;
+    readonly cantidadDisponible: number;
 
 }

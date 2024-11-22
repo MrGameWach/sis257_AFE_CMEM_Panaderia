@@ -66,7 +66,7 @@ async function handleSave() {
         <InputText id="rol" v-model="empleado.rol" class="flex-auto" autocomplete="off" autofocus />
       </div>
       <div class="flex justify-end gap-4 mb-4">
-        <label for="fechaContratacion" class="font-semibold w-4">Fecha de Ingreso</label>
+        <label for="fechaContratacion" class="font-semibold w-4">Fecha de Contratacion</label>
         <DatePicker id="fechaContratacion" v-model="empleado.fechaContratacion" class="flex-auto" autocomplete="off" />
       </div>
 
