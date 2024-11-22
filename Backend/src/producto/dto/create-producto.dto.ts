@@ -1,5 +1,5 @@
 import { ApiProduces, ApiProperty } from "@nestjs/swagger";
-import { isNotEmpty, IsNotEmpty, isNumber, IsNumber, IsString, MaxLength, Min, validate } from "class-validator";
+import { IsDefined, isNotEmpty, IsNotEmpty, isNumber, IsNumber, IsString, MaxLength, Min, validate } from "class-validator";
 
 export class CreateProductoDto {
     @ApiProperty()
@@ -26,4 +26,8 @@ export class CreateProductoDto {
     @Min(0, { message: 'el campo no debe ser negativo' })
     readonly cantidadDisponible: number;
 
+    @ApiProperty()
+    @IsDefined({message: 'El campo idPedido debe estar definido'})
+    @IsNumber({}, {message: 'El campo idPedido debe ser tipo numerico'})
+    readonly idPedido:number;
 }

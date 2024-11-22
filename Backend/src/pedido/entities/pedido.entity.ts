@@ -20,7 +20,7 @@ export class Pedido {
   @DeleteDateColumn()
   fechaEliminacion: Date;
 
-  @OneToMany(()=>Producto,(producto)=>producto.cantidadDisponible)
+  @OneToMany(()=>Producto,(producto)=>producto.pedido)
   productos: Producto[];
 
   @ManyToOne(() => Cliente, (cliente) => cliente.pedidos)

@@ -4,6 +4,7 @@ import { UpdateProductoDto } from './dto/update-producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Producto } from './entities/producto.entity';
 import { Repository } from 'typeorm';
+import {Pedido} from 'src/pedido/entities/pedido.entity'
 
 @Injectable()
 export class ProductoService {
@@ -16,7 +17,8 @@ export class ProductoService {
       nombre: createProductoDto.nombre.trim(),
       precio: createProductoDto.precio,
       tipo: createProductoDto.tipo.trim(),
-      cantidadDisponible: createProductoDto.cantidadDisponible
+      cantidadDisponible: createProductoDto.cantidadDisponible,
+      pedido:{id:createProductoDto.idPedido}
     });
     if (existe) throw new ConflictException('el producto ya existe')
 
@@ -25,26 +27,36 @@ export class ProductoService {
     producto.precio = createProductoDto.precio;
     producto.tipo = createProductoDto.tipo.trim();
     producto.cantidadDisponible = createProductoDto.cantidadDisponible;
+    producto.pedido={id: createProductoDto.idPedido}as Pedido
     return this.productosRepository.save(producto);
   }
 
   async findAll(): Promise<Producto[]> {
-    return this.productosRepository.find();
+    return this.productosRepository.find({relations:['pedido']});
   }
 
   async findOne(id: number): Promise<Producto> {
+
+
     const producto = await this.productosRepository.findOneBy({ id });
     if (!producto) throw new NotFoundException('el producto no existe');
 
     return producto;
   }
-
+  async findByPedido(idPedido:number): Promise<Producto[]> {
+    return this.productosRepository
+      .createQueryBuilder('productos')
+      .innerJoin('albumes.pedido','pedido')
+      .where('pedido.id=idPedido',{idPedido})
+      .getMany();
+  }
   async update(id: number, updateProductoDto: UpdateProductoDto): Promise<Producto> {
     const producto = await this.findOne(id);
     producto.nombre = updateProductoDto.nombre.trim();
     producto.precio = updateProductoDto.precio;
     producto.tipo = updateProductoDto.tipo.trim();
     producto.cantidadDisponible = updateProductoDto.cantidadDisponible;
+    producto.pedido={id: updateProductoDto.idPedido}as Pedido;
     const productoUpdate = Object.assign(producto, UpdateProductoDto)
     return this.productosRepository.save(productoUpdate);
   }
