@@ -41,7 +41,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 text-center">
-            <h2 class="mb-4">Algunos de nuestros productos</h2>
+            <h2 class="mb-4">Algunos de nuestros muchos productos</h2>
           </div>
           <div class="col-lg-5 col-12">
             <div class="artists-thumb">
