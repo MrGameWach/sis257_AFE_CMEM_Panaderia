@@ -37,7 +37,9 @@ export class PedidoService {
   }
 
   async findAll(): Promise<Pedido[]> {
-    return this.pedidosRepository.find();
+    return this.pedidosRepository.find({
+    relations: ['cliente', 'producto', 'empleado'],
+    });
   }
   async findByEmpleado(idEmpleado: number): Promise<Pedido[]> {
     return this.pedidosRepository
@@ -61,12 +63,12 @@ export class PedidoService {
       .getMany();
   }
   async findOne(id: number): Promise<Pedido> {
-    const album = this.pedidosRepository.findOne({
+    const pedido = this.pedidosRepository.findOne({
       where: { id },
       relations: ['cliente','empleado','producto'],
     });
-    if (!album) throw new NotFoundException('El album no existe');
-    return album;
+    if (!pedido) throw new NotFoundException('El pedido no existe');
+    return pedido;
   }
 
   async update(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {

@@ -11,5 +11,5 @@ export class Inventario {
   cantidad: number;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  fecha_actualizacion: Date;
+  fechaActualizacion: Date;
 }
