@@ -18,7 +18,6 @@ export class ProductoService {
       precio: createProductoDto.precio,
       tipo: createProductoDto.tipo.trim(),
       cantidadDisponible: createProductoDto.cantidadDisponible,
-      pedido:{id:createProductoDto.idPedido}
     });
     if (existe) throw new ConflictException('el producto ya existe')
 
@@ -27,17 +26,15 @@ export class ProductoService {
     producto.precio = createProductoDto.precio;
     producto.tipo = createProductoDto.tipo.trim();
     producto.cantidadDisponible = createProductoDto.cantidadDisponible;
-    producto.pedido={id: createProductoDto.idPedido}as Pedido
+
     return this.productosRepository.save(producto);
   }
 
   async findAll(): Promise<Producto[]> {
-    return this.productosRepository.find({relations:['pedido']});
+    return this.productosRepository.find();
   }
 
   async findOne(id: number): Promise<Producto> {
-
-
     const producto = await this.productosRepository.findOneBy({ id });
     if (!producto) throw new NotFoundException('el producto no existe');
 
@@ -56,7 +53,6 @@ export class ProductoService {
     producto.precio = updateProductoDto.precio;
     producto.tipo = updateProductoDto.tipo.trim();
     producto.cantidadDisponible = updateProductoDto.cantidadDisponible;
-    producto.pedido={id: updateProductoDto.idPedido}as Pedido;
     const productoUpdate = Object.assign(producto, UpdateProductoDto)
     return this.productosRepository.save(productoUpdate);
   }

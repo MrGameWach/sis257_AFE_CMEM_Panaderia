@@ -1,7 +1,7 @@
 import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Empleado } from 'src/empleado/entities/empleado.entity';
 import { Producto } from 'src/producto/entities/producto.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, OneToMany, ManyToOne, JoinColumn, OneToOne, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity()
 export class Pedido {
@@ -20,9 +20,6 @@ export class Pedido {
   @DeleteDateColumn()
   fechaEliminacion: Date;
 
-  @OneToMany(()=>Producto,(producto)=>producto.pedido)
-  productos: Producto[];
-
   @ManyToOne(() => Cliente, (cliente) => cliente.pedidos)
   @JoinColumn({ name: 'id_cliente', referencedColumnName: 'id' })
   cliente: Cliente;
@@ -30,4 +27,9 @@ export class Pedido {
   @ManyToOne(() => Empleado, (empleado) => empleado.pedidos)
   @JoinColumn({ name: 'id_empleado', referencedColumnName: 'id' })
   empleado: Empleado;
+
+  @ManyToOne(() => Producto, (producto) => producto.pedidos)
+  @JoinColumn({ name: 'id_producto', referencedColumnName: 'id' })
+  producto: Producto;
+
 }

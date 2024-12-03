@@ -7,7 +7,6 @@ import { ProductoModule } from './producto/producto.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { PedidoModule } from './pedido/pedido.module';
 import { EmpleadoModule } from './empleado/empleado.module';
-import { ProveedorModule } from './proveedor/proveedor.module';
 import { InventarioModule } from './inventario/inventario.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { AuthModule } from './auth/auth.module';
@@ -31,7 +30,6 @@ import { AuthModule } from './auth/auth.module';
     ClienteModule,
     PedidoModule,
     EmpleadoModule,
-    ProveedorModule,
     UsuariosModule,
     InventarioModule,
     AuthModule,

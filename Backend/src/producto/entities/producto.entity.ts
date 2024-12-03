@@ -1,6 +1,5 @@
 import { Pedido } from 'src/pedido/entities/pedido.entity';
-import { Proveedor } from 'src/proveedor/entities/proveedor.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn,ManyToMany } from 'typeorm';
 
 @Entity('productos')
 export class Producto {
@@ -19,10 +18,7 @@ export class Producto {
   @Column('int')
   cantidadDisponible: number;
 
-  @OneToMany(()=>Proveedor,(proveedor)=>proveedor.producto)
-  proveedores: Proveedor[];
 
-  @ManyToOne(() => Pedido, (pedido) => pedido.productos)
-  @JoinColumn({ name: 'id_pedido', referencedColumnName: 'id' })
-  pedido: Pedido;
+  @OneToMany(()=>Pedido,(pedido)=>pedido.producto)
+  pedidos: Pedido[];
 }

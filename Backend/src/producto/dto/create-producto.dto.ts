@@ -25,9 +25,4 @@ export class CreateProductoDto {
     @IsNumber()
     @Min(0, { message: 'el campo no debe ser negativo' })
     readonly cantidadDisponible: number;
-
-    @ApiProperty()
-    @IsDefined({message: 'El campo idPedido debe estar definido'})
-    @IsNumber({}, {message: 'El campo idPedido debe ser tipo numerico'})
-    readonly idPedido:number;
 }
