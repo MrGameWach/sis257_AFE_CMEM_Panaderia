@@ -46,7 +46,6 @@ defineExpose({ obtenerLista })
           <th>Precio</th>
           <th>Tipo</th>
           <th>Cantidad disponible</th>
-          <th>Pedidos</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -57,7 +56,6 @@ defineExpose({ obtenerLista })
           <td>{{ producto.precio }}</td>
           <td>{{ producto.tipo }}</td>
           <td>{{ producto.cantidadDisponible }}</td>
-          <td>{{ producto.pedido.id }}</td>
           <td>
             <Button
               icon="pi pi-pencil"

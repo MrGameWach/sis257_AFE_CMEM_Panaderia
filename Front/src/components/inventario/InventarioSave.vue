@@ -3,6 +3,7 @@ import type { Inventario } from '@/models/inventario'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import InputNumber from 'primevue/inputnumber'
 import DatePicker from 'primevue/datepicker'
 import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
@@ -63,7 +64,7 @@ async function handleSave() {
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="cantidad" class="font-semibold w-4">Cantidad</label>
-                <InputText id="cantidad" v-model="inventario.cantidad" class="flex-auto" autocomplete="off" autofocus />
+                <InputNumber id="cantidad" v-model="inventario.cantidad" class="flex-auto" autocomplete="off" autofocus />
             </div>
             <div class="flex justify-end gap-4 mb-4">
                 <label for="fechaActualizacion" class="font-semibold w-4">Fecha de Actualizacion</label>

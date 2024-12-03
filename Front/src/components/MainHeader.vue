@@ -45,14 +45,11 @@ const location = useRoute()
             <li class="nav-item">
               <RouterLink to="/productos" class="nav-link click-scroll text-dark">Productos</RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink to="/proveedores" class="nav-link click-scroll text-dark">Proveedores</RouterLink>
-            </li>
           </ul>
         </div>
       </div>
     </nav>
-  </div><br><br>
+  </div>
 </template>
 
   

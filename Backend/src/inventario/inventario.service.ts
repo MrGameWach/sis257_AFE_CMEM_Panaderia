@@ -13,6 +13,7 @@ export class InventarioService {
   ){}
   async create(createInventarioDto: CreateInventarioDto): Promise<Inventario> {
     const existe = await this.inventariosRepository.findOneBy({
+      nombre: createInventarioDto.nombre,
       cantidad:createInventarioDto.cantidad
     });
     if (existe) throw new ConflictException('el inventario ya existe')

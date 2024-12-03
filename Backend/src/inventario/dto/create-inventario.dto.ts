@@ -13,7 +13,7 @@ export class CreateInventarioDto {
     @ApiProperty()
     @IsNotEmpty({ message: 'el campo no puede estar vacio' })
     @IsNumber()
-    @Min(0, { message: 'la cantidad no debe ser negativo' })
+    //@Min(0, { message: 'la cantidad no debe ser negativo' })
     readonly cantidad: number;
 
 }

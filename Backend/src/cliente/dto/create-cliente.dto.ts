@@ -17,7 +17,7 @@ export class CreateClienteDto {
     @ApiProperty()
     @IsNotEmpty({ message: 'el campo no puede estar vacio' })
     @IsString({ message: 'el campo es de tipo cadena' })
-    @MaxLength(8, { message: '50 caracters como maximo' })
+    @MaxLength(8, { message: '8 caracters como maximo' })
     readonly telefono: string;
 
 }

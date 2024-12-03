@@ -42,22 +42,22 @@ defineExpose({ obtenerLista })
       <thead>
         <tr>
           <th>Nro.</th>
+          <th>Cliente</th>
+          <th>Producto</th>
+          <th>Empleado</th>
           <th>Fecha</th>
           <th>Total</th>
-          <th>Cliente</th>
-          <th>Empleado</th>
-          <th>Producto</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(pedido, index) in pedidos" :key="pedido.id">
           <td>{{ index + 1 }}</td>
+          <td>{{ pedido.cliente.nombre }}</td>
+          <td>{{ pedido.producto.nombre }}</td>
+          <td>{{ pedido.empleado.nombre }}</td>
           <td>{{ pedido.fecha }}</td>
           <td>{{ pedido.total }}</td>
-          <td>{{ pedido.cliente.nombre }}</td>
-          <td>{{ pedido.empleado.nombre }}</td>
-          <td>{{ pedido.producto.nombre }}</td>
           <td>
             <Button
               icon="pi pi-pencil"

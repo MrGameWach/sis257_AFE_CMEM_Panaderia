@@ -4,6 +4,7 @@ import type { Pedido } from '@/models/pedido'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import InputNumber from 'primevue/inputnumber'
 import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
 
@@ -45,7 +46,7 @@ async function obtenerPedidos() {
 async function handleSave() {
     try {
         const body = {
-            idPedido: producto.value.pedido.id,
+            
             nombre: producto.value.nombre,
             precio: producto.value.precio,
             tipo: producto.value.tipo,
@@ -76,25 +77,24 @@ watch(
 
 <template>
     <div class="card flex justify-center">
-        <Dialog v-model:visible="dialogVisible" :header="(props.modoEdicion ? 'Editar' : 'Crear') + ' Canción'"
+        <Dialog v-model:visible="dialogVisible" :header="(props.modoEdicion ? 'Editar' : 'Crear') + ' Producto'"
             style="width: 25rem">
             <div class="flex items-center gap-4 mb-4">
                 <label for="nombre" class="font-semibold w-4">Nombre</label>
                 <InputText id="nombre" v-model="producto.nombre" class="flex-auto" autocomplete="off" autofocus="" />
             </div>
-            
-            <div class="flex items-center gap-4 mb-4">
+            <div class="flex justify-end gap-4 mb-4">
                 <label for="precio" class="font-semibold w-4">Precio</label>
-                <InputText id="precio" v-model="producto.precio" class="flex-auto" autocomplete="off" autofocus />
+                <InputNumber id="precio" v-model="producto.precio" class="flex-auto" autocomplete="off" />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label for="tipo" class="font-semibold w-4">Tipo</label>
-                <InputText id="tipo" v-model="producto.tipo" class="flex-auto" autocomplete="off" autofocus=""/>
+                <InputText id="tipo" v-model="producto.tipo" class="flex-auto" autocomplete="off" autofocus="" />
             </div>
-            
-            <div class="flex items-center gap-4 mb-4">
-                <label for="cantidadDisponible" class="font-semibold w-4">Cantidad disponible</label>
-                <InputText id="cantidadDisponible" v-model="producto.cantidadDisponible" class="flex-auto" autocomplete="off" autofocus />
+            <div class="flex justify-end gap-4 mb-4">
+                <label for="cantidadDisponible" class="font-semibold w-4">Cantidad Disponible</label>
+                <InputNumber id="cantidadDisponible" v-model="producto.cantidadDisponible" class="flex-auto"
+                    autocomplete="off" />
             </div>
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancelar" icon="pi pi-times" severity="secondary"
