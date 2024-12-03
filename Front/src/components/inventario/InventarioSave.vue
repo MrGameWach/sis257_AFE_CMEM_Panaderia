@@ -3,6 +3,7 @@ import type { Inventario } from '@/models/inventario'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import DatePicker from 'primevue/datepicker'
 import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
 
@@ -35,7 +36,7 @@ watch(
 async function handleSave() {
     try {
         const body = {
-            nombre: inventario.value.nombre,    
+            nombre: inventario.value.nombre,
             cantidad: inventario.value.cantidad,
             fechaActualizacion: inventario.value.fechaActualizacion
         }
@@ -64,9 +65,10 @@ async function handleSave() {
                 <label for="cantidad" class="font-semibold w-4">Cantidad</label>
                 <InputText id="cantidad" v-model="inventario.cantidad" class="flex-auto" autocomplete="off" autofocus />
             </div>
-            <div class="flex items-center gap-4 mb-4">
-                <label for="fechaActualizacion">Fecha de actualizacion</label>
-                <Calendar id="fechaActualizacion" v-model="inventario.fechaActualizacion" dateFormat="yy-mm-dd" showIcon></Calendar>
+            <div class="flex justify-end gap-4 mb-4">
+                <label for="fechaActualizacion" class="font-semibold w-4">Fecha de Actualizacion</label>
+                <DatePicker id="fechaActualizacion" v-model="inventario.fechaActualizacion" class="flex-auto"
+                    autocomplete="off" />
             </div>
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancelar" icon="pi pi-times" severity="secondary"

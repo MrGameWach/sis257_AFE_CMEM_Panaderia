@@ -29,7 +29,7 @@ function handleGuardar() {
 
 <template>
   <div class="m-8">
-    <h1>Inventarioes</h1>
+    <h1>Inventarios</h1>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="hableCreate" />
     <InventarioList ref="inventarioListRef" @edit="handleEdit" />
     <InventarioSave

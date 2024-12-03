@@ -44,6 +44,9 @@ defineExpose({ obtenerLista })
           <th>Nro.</th>
           <th>Fecha</th>
           <th>Total</th>
+          <th>Cliente</th>
+          <th>Empleado</th>
+          <th>Producto</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -52,6 +55,9 @@ defineExpose({ obtenerLista })
           <td>{{ index + 1 }}</td>
           <td>{{ pedido.fecha }}</td>
           <td>{{ pedido.total }}</td>
+          <td>{{ pedido.cliente.nombre }}</td>
+          <td>{{ pedido.empleado.nombre }}</td>
+          <td>{{ pedido.producto.nombre }}</td>
           <td>
             <Button
               icon="pi pi-pencil"
